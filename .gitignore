@@ -1,0 +1,18 @@
+# Don't track environment variables
+.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Docker files and intermediate containers
+*.tar
+*.log
+
+# VS Code settings (optional)
+.vscode/
+
+# OS-specific junk files
+.DS_Store
+Thumbs.db

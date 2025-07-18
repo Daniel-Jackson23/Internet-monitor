@@ -5,7 +5,7 @@ import time
 from email.message import EmailMessage
 from dotenv import load_dotenv
 
-print("STARTED SCRIPT", flush=True)  # 👈 Add this line right after imports
+print("STARTED SCRIPT", flush=True) 
 
 load_dotenv()
 
