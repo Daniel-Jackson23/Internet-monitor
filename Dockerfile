@@ -19,6 +19,6 @@ COPY --from=web /src/web/dist ./web/dist
 
 ENV DATA_DIR=/data PYTHONUNBUFFERED=1
 VOLUME /data
-EXPOSE 8000
+EXPOSE 8090
 
 CMD ["python", "monitor.py"]

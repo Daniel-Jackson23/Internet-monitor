@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - "8000:8000"
+      - "8090:8090"
     volumes:
       - monitor-data:/data
 
