@@ -13,7 +13,7 @@ Checks your internet connection every minute, records the results, and emails yo
 docker compose up -d --build
 ```
 
-Dashboard: http://localhost:8000. Settings come from `.env`:
+Dashboard: http://localhost:8090. Settings come from `.env`:
 
 | Variable | Default | |
 |---|---|---|
@@ -25,8 +25,8 @@ Dashboard: http://localhost:8000. Settings come from `.env`:
 
 ```sh
 pip install -r requirements-dev.txt
-python monitor.py              # API on :8000
-cd web && npm install && npm run dev   # dashboard on :5173, proxies /api
+python monitor.py              # API on :8090
+cd web && npm install && npm run dev   # dashboard on :5180, proxies /api
 pytest && ruff check .
 ```
 
@@ -36,4 +36,4 @@ pytest && ruff check .
 cd mobile && npm install && npx expo start
 ```
 
-Scan the QR code with Expo Go on your phone (it must be on the same Wi-Fi). On first launch, enter the monitor's address, e.g. `http://192.168.1.10:8000`. Use your PC's LAN IP (`ipconfig`), not `localhost`.
+Scan the QR code with Expo Go on your phone (it must be on the same Wi-Fi). On first launch, enter the monitor's address, e.g. `http://192.168.0.100:8090`. Use your PC's LAN IP (`ipconfig`), not `localhost`.

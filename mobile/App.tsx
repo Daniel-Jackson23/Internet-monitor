@@ -30,7 +30,7 @@ function Monitor() {
   const c = scheme === "dark" ? dark : light;
 
   const [serverUrl, setServerUrl] = useState<string | null>(null);
-  const [draftUrl, setDraftUrl] = useState("http://192.168.1.10:8000");
+  const [draftUrl, setDraftUrl] = useState("http://192.168.0.100:8090");
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState<Status | null>(null);
   const [history, setHistory] = useState<Check[]>([]);
@@ -62,9 +62,9 @@ function Monitor() {
       setError(null);
       setNow(Date.now() / 1000);
     } catch (e) {
-      setError(`Can't reach the monitor: ${(e as Error).message}`);
+      setError(`Can't reach the monitor at ${serverUrl}: ${(e as Error).message}`);
     }
-  }, [api]);
+  }, [api, serverUrl]);
 
   useEffect(() => {
     const first = setTimeout(load, 0);

@@ -22,7 +22,17 @@ export interface Outage {
 
 export function createClient(baseUrl = "") {
   async function get<T>(path: string): Promise<T> {
-    const res = await fetch(`${baseUrl}${path}`);
+    // Without a timeout, an unreachable server leaves the request hanging forever
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10_000);
+    let res: Response;
+    try {
+      res = await fetch(`${baseUrl}${path}`, { signal: controller.signal });
+    } catch (e) {
+      throw new Error(controller.signal.aborted ? "timed out" : (e as Error).message);
+    } finally {
+      clearTimeout(timer);
+    }
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     return res.json();
   }
