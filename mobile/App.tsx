@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -16,6 +17,15 @@ import { createClient, formatDuration, formatTime, type Check, type Outage, type
 
 const REFRESH_MS = 15_000;
 const SERVER_KEY = "serverUrl";
+const MONITOR_PORT = 8090;
+// Placeholder addresses older versions could have saved
+const STALE_URLS = ["http://192.168.1.10:8000", "http://192.168.1.10:8080"];
+
+// In development the monitor usually runs on the same PC as the Expo dev server
+function guessServerUrl(): string | null {
+  const host = Constants.expoConfig?.hostUri?.split(":")[0];
+  return host ? `http://${host}:${MONITOR_PORT}` : null;
+}
 
 export default function App() {
   return (
@@ -30,7 +40,7 @@ function Monitor() {
   const c = scheme === "dark" ? dark : light;
 
   const [serverUrl, setServerUrl] = useState<string | null>(null);
-  const [draftUrl, setDraftUrl] = useState("http://192.168.0.100:8090");
+  const [draftUrl, setDraftUrl] = useState(() => guessServerUrl() ?? `http://192.168.0.100:${MONITOR_PORT}`);
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState<Status | null>(null);
   const [history, setHistory] = useState<Check[]>([]);
@@ -40,7 +50,8 @@ function Monitor() {
   const [now, setNow] = useState(() => Date.now() / 1000);
 
   useEffect(() => {
-    AsyncStorage.getItem(SERVER_KEY).then((url) => {
+    AsyncStorage.getItem(SERVER_KEY).then((saved) => {
+      const url = saved && !STALE_URLS.includes(saved) ? saved : guessServerUrl();
       if (url) {
         setServerUrl(url);
         setDraftUrl(url);
