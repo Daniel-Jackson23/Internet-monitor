@@ -16,3 +16,8 @@ __pycache__/
 # OS-specific junk files
 .DS_Store
 Thumbs.db
+
+# App data and build output
+data/
+node_modules/
+web/dist/

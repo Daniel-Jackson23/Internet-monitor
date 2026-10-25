@@ -1,0 +1,13 @@
+services:
+  monitor:
+    build: .
+    container_name: internet-monitor
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - monitor-data:/data
+
+volumes:
+  monitor-data:

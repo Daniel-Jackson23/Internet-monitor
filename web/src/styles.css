@@ -1,0 +1,163 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #16181d;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --up: #16a34a;
+  --down: #dc2626;
+  --accent: #2563eb;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #181b21;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --border: #2a2e36;
+    --up: #22c55e;
+    --down: #ef4444;
+    --accent: #60a5fa;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0 0 16px;
+}
+
+h2 {
+  font-size: 1rem;
+  margin: 0 0 12px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.card,
+.hero {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card {
+  margin-top: 16px;
+}
+
+.error {
+  background: color-mix(in srgb, var(--down) 12%, var(--card));
+  border: 1px solid var(--down);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+.hero.up .dot {
+  background: var(--up);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--up) 20%, transparent);
+}
+
+.hero.down .dot {
+  background: var(--down);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--down) 20%, transparent);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.chart svg {
+  width: 100%;
+  height: 160px;
+  display: block;
+}
+
+.latency-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.down-band {
+  fill: var(--down);
+  opacity: 0.35;
+}
+
+.chart-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.badge {
+  color: var(--down);
+  font-weight: 600;
+}
